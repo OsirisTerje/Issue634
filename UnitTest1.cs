@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -324,38 +325,46 @@ namespace Tests
             "2022-01-01 - 2022-12-31 Freelance 3 4");
         #endregion
 
-        static readonly object[] CasesForBreakContractsByYearOfService =
+        class CasesForBreakContractsByYearOfService : IEnumerable<TestCaseData>
         {
-            new object[] { Contracts_1, ExpectedResultForBreakContractsByYearOfService1 },
-            new object[] { Contracts_2, ExpectedResultForBreakContractsByYearOfService2 },
-            new object[] { Contracts_3, ExpectedResultForBreakContractsByYearOfService3 },
-            new object[] { Contracts_4, ExpectedResultForBreakContractsByYearOfService4 },
-            new object[] { Contracts_5, ExpectedResultForBreakContractsByYearOfService5 },
-            new object[] { Contracts_6, ExpectedResultForBreakContractsByYearOfService6 },
-            new object[] { Contracts_7, ExpectedResultForBreakContractsByYearOfService7 },
-            new object[] { Contracts_8, ExpectedResultForBreakContractsByYearOfService8 },
-            new object[] { Contracts_9, ExpectedResultForBreakContractsByYearOfService9 },
-            new object[] { Contracts_10, ExpectedResultForBreakContractsByYearOfService10 },
-            new object[] { Contracts_11, ExpectedResultForBreakContractsByYearOfService11 },
-            new object[] { Contracts_12, ExpectedResultForBreakContractsByYearOfService12 },
-            new object[] { Contracts_13, ExpectedResultForBreakContractsByYearOfService13 },
-            new object[] { Contracts_14, ExpectedResultForBreakContractsByYearOfService14 },
-            new object[] { Contracts_15, ExpectedResultForBreakContractsByYearOfService15 },
-            new object[] { Contracts_16, ExpectedResultForBreakContractsByYearOfService16 },
-            new object[] { Contracts_17, ExpectedResultForBreakContractsByYearOfService17 },
-            new object[] { Contracts_18, ExpectedResultForBreakContractsByYearOfService18 },
-            new object[] { Contracts_19, ExpectedResultForBreakContractsByYearOfService19 },
-            new object[] { Contracts_20, ExpectedResultForBreakContractsByYearOfService20 },
-            new object[] { Contracts_21, ExpectedResultForBreakContractsByYearOfService21 },
-            new object[] { Contracts_22, ExpectedResultForBreakContractsByYearOfService22 },
-        };
+            public IEnumerator<TestCaseData> GetEnumerator()
+            {
+             yield return new TestCaseData(Contracts_1, ExpectedResultForBreakContractsByYearOfService1 ).SetName($"{nameof(CasesForBreakContractsByYearOfService)}.{nameof(Contracts_1)}");
+             yield return new TestCaseData(Contracts_2, ExpectedResultForBreakContractsByYearOfService2 ).SetName($"{nameof(CasesForBreakContractsByYearOfService)}.{nameof(Contracts_2)}");
+             yield return new TestCaseData( Contracts_3, ExpectedResultForBreakContractsByYearOfService3 );
+             yield return new TestCaseData( Contracts_4, ExpectedResultForBreakContractsByYearOfService4 );
+             yield return new TestCaseData( Contracts_5, ExpectedResultForBreakContractsByYearOfService5 );
+             yield return new TestCaseData( Contracts_6, ExpectedResultForBreakContractsByYearOfService6 );
+             yield return new TestCaseData( Contracts_7, ExpectedResultForBreakContractsByYearOfService7 );
+             yield return new TestCaseData( Contracts_8, ExpectedResultForBreakContractsByYearOfService8 );
+             yield return new TestCaseData( Contracts_9, ExpectedResultForBreakContractsByYearOfService9 );
+             yield return new TestCaseData( Contracts_10, ExpectedResultForBreakContractsByYearOfService10 );
+             yield return new TestCaseData( Contracts_11, ExpectedResultForBreakContractsByYearOfService11 );
+             yield return new TestCaseData( Contracts_12, ExpectedResultForBreakContractsByYearOfService12 );
+             yield return new TestCaseData( Contracts_13, ExpectedResultForBreakContractsByYearOfService13 );
+             yield return new TestCaseData( Contracts_14, ExpectedResultForBreakContractsByYearOfService14 );
+             yield return new TestCaseData( Contracts_15, ExpectedResultForBreakContractsByYearOfService15 );
+             yield return new TestCaseData( Contracts_16, ExpectedResultForBreakContractsByYearOfService16 );
+             yield return new TestCaseData( Contracts_17, ExpectedResultForBreakContractsByYearOfService17 );
+             yield return new TestCaseData( Contracts_18, ExpectedResultForBreakContractsByYearOfService18 );
+             yield return new TestCaseData( Contracts_19, ExpectedResultForBreakContractsByYearOfService19 );
+             yield return new TestCaseData( Contracts_20, ExpectedResultForBreakContractsByYearOfService20 );
+             yield return new TestCaseData( Contracts_21, ExpectedResultForBreakContractsByYearOfService21 );
+             yield return new TestCaseData( Contracts_22, ExpectedResultForBreakContractsByYearOfService22 );
+                }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
 
         [SetUp]
         public void Setup()
         {
         }
 
-        [Test, TestCaseSource(nameof(CasesForBreakContractsByYearOfService))]
+        [TestCaseSource(typeof(CasesForBreakContractsByYearOfService))]
         public void BreakContractsByYearOfService(
             List<ContractRange> personContracts,
             List<ContractRange> expectedResult)
