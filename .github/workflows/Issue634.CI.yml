@@ -16,4 +16,4 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Then let us test it
-      run: dotnet test -v ncamt
+      run: dotnet test -v n
